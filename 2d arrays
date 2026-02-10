@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int main() {
+    int a[2][2], b[2][2];
+    int i, j;
+
+    // Input elements for first 2D array
+    printf("Enter elements for first 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("a[%d][%d] = ", i, j);
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    // Input elements for second 2D array
+    printf("\nEnter elements for second 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("b[%d][%d] = ", i, j);
+            scanf("%d", &b[i][j]);
+        }
+    }
+
+    // Display first array
+    printf("\nFirst 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("%d ", a[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Display second array
+    printf("\nSecond 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("%d ", b[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}

@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct node* head = NULL;
+
+void insert_at_beginning(int data) {
+    struct node *newnode, *temp;
+    // Corrected malloc usage and type casting
+    newnode = (struct node*)malloc(sizeof(struct node));
+    if (newnode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    newnode->data = data;
+    if (head == NULL) { // Corrected the if condition (== instead of =)
+        newnode->next = newnode; // In a circular list, the first node points to itself
+        head = newnode;
+    } else {
+        temp = head;
+        // Traverse to the last node
+        while (temp->next != head) {
+            temp = temp->next;
+        }
+        newnode->next = head; // New node points to the old head
+        temp->next = newnode; // Last node points to the new node
+        head = newnode; // Update the head pointer to the new node
+    }
+}
+
+void traverse() {
+    struct node *temp;
+    if (head == NULL) {
+        printf("list is empty\n"); // Added missing semicolon and closing brace
+    } else {
+        temp = head;
+        do {
+            printf("%d ", temp->data); // Added space for readability
+            temp = temp->next;
+        } while (temp != head); // Loop until the pointer reaches the head again
+        printf("\n"); // Newline after traversal
+    }
+}
+
+int main() {
+    insert_at_beginning(10);
+    insert_at_beginning(20);
+    insert_at_beginning(30);
+    printf("Circular linked list after insertions: ");
+    traverse();
+    return 0;
+}

@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the struct for a tree node
+struct TreeNode {
+    int data;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+// Function to create a new tree node
+struct TreeNode* createNode(int data) {
+    // Correctly allocate memory and cast to (struct TreeNode*)
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    if (newNode == NULL) {
+        // Handle memory allocation failure
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a new node into a Binary Search Tree (BST)
+struct TreeNode* insert(struct TreeNode* root, int data) {
+    // If the tree is empty, return a new node as the root
+    if (root == NULL) {
+        return createNode(data);
+    }
+
+    // Otherwise, recurse down the tree
+    if (data < root->data) {
+        root->left = insert(root->left, data);
+    } else if (data > root->data) {
+        root->right = insert(root->right, data);
+    }
+    // If data is equal, do nothing (for BSTs with no duplicates)
+
+    // Return the (unchanged) node pointer
+    return root;
+}
+
+// Function for in-order traversal of the BST (to verify insertion)
+void inorderTraversal(struct TreeNode* root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        printf("%d ", root->data);
+        inorderTraversal(root->right);
+    }
+}
+
+// Example usage
+int main() {
+    struct TreeNode* root = NULL;
+
+    // Insert nodes into the BST
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 70);
+    insert(root, 60);
+    insert(root, 80);
+
+    // Print the in-order traversal of the BST
+    printf("In-order traversal of the BST: ");
+    inorderTraversal(root);
+    printf("\n");
+
+    // Note: Proper memory deallocation for the entire tree should be implemented in a real application.
+
+    return 0;
+}
